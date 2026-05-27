@@ -85,20 +85,16 @@ BinarySearchTree* findMin(BinarySearchTree* root) {
 	return root;
 }
 void deleteKey(BinarySearchTree** root, unsigned int key) {
-	//1.when its a leaf
 	if ((*root)->data->regNo > key)
 		deleteKey(&(*root)->leftChild, key);
 	else if ((*root)->data->regNo < key)
 		deleteKey(&(*root)->rightChild, key);
-	//we have found the key
 	else {
-		//a leaf
 		if ((*root)->leftChild == NULL && (*root)->rightChild == NULL) {
 			deleteStudent((*root)->data);
 			free((*root));
 			(*root) = NULL;
 		}
-		//one desc.
 		else if ((*root)->leftChild == NULL || (*root)->rightChild == NULL) {
 			BinarySearchTree* desc = ((*root)->leftChild != NULL) ? (*root)->leftChild :
 				(*root)->rightChild;
@@ -106,10 +102,8 @@ void deleteKey(BinarySearchTree** root, unsigned int key) {
 			free((*root));
 			(*root) = desc;
 		}
-		//two desc.
 		else
 		{
-			//search for the min node in the right subtree
 			BinarySearchTree* minDesc = findMin((*root)->rightChild);
 			Student* aux = (*root)->data;
 			(*root)->data = minDesc->data;
